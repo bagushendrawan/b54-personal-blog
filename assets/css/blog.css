@@ -286,6 +286,11 @@ h2 {
     align-items: center;
   }
 
+  #gallery a{
+    text-decoration: none;
+    color: black;
+  }
+
   /* Card */
   .card {
     margin: 3rem 2rem;
