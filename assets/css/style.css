@@ -1,0 +1,204 @@
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(209, 209, 209);
+}
+
+.main {
+  display: flex;
+  margin: 5% auto;
+  padding: 2rem;
+  width: 60%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.225);
+  background-color: white;
+}
+
+.desc {
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+}
+
+.desc p {
+  text-align: justify;
+  font-weight: 100;
+}
+
+.desc a {
+  text-decoration: none;
+  color: black;
+}
+
+.desc button {
+  cursor: pointer;
+  background-color: black;
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+  border: none;
+  color: white;
+  border-radius: 24px;
+  font-size: 10pt;
+  padding: 5px 20px;
+  margin-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.dl-icon {
+  height: 0.75rem;
+  margin-left: 0.2rem;
+}
+
+.social {
+  display: flex;
+  margin: 1rem 0;
+  width: 50%;
+  text-align: start;
+}
+
+.social a img {
+  height: 2rem;
+}
+
+.card {
+  margin: 1rem auto;
+  width: 30%;
+  text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.115);
+  border-radius: 8px;
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.card p {
+  margin: 0.25rem;
+  font-size: 10pt;
+  font-weight: 100;
+}
+
+.card h3 {
+  display: block;
+  margin: 0.25rem;
+}
+
+.card div {
+  padding: 10px;
+}
+
+/* Nav */
+.nav-bar {
+  display: flex;
+  height: 60px;
+  background-color: rgb(232, 232, 232);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 72px;
+}
+
+img {
+  height: 40px;
+  margin-right: 25px;
+}
+
+.nav-bar ul {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: black;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.nav-link {
+  margin: 0 15px;
+}
+
+.nav-bar button {
+  cursor: pointer;
+  background-color: black;
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  font-size: 11pt;
+  padding: 5px 15px;
+}
+/* ----- */
+
+/* Form */
+h2 {
+  margin-top: 60px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  width: 35%;
+  flex-direction: column;
+  align-items: center;
+  margin: auto;
+}
+
+.contact-form {
+  width: 100%;
+}
+
+form div {
+  display: flex;
+  margin: 10px 0;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 4px;
+  color: rgb(17, 17, 17);
+}
+
+form div input,
+select,
+textarea {
+  border: none;
+  height: 40px;
+  border-radius: 4px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.075);
+}
+
+textarea {
+  resize: none;
+  height: 100px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
+
+form button {
+  cursor: pointer;
+  align-self: flex-end;
+  background-color: black;
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+  border: none;
+  color: white;
+  width: 100px;
+  border-radius: 12px;
+  font-size: 11pt;
+  font-weight: bold;
+  padding: 5px 15px;
+}
+/* ----- */
+.active {
+  font-weight: bold;
+}
+
+nav .btn-active {
+  background-color: rgb(0, 0, 0);
+  border: none;
+}

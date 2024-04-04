@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
+    <link rel="stylesheet" href="./assets/css/style.css" />
+  </head>
+  <body>
+    <nav class="nav-bar">
+      <ul>
+        <li><img src="./assets/img/letter-b.png" alt="web-icon" /></li>
+        <a href="./index.html"><li class="nav-link">Home</li></a>
+        <a href="#"><li class="nav-link">Project</li></a>
+      </ul>
+      <a href="./contact-form.html"
+        ><button class="btn-active">Contact Me</button></a
+      >
+    </nav>
+
+    <form>
+      <h2>GET IN TOUCH</h2>
+      <div class="contact-form">
+        <div>
+          <label type="text" for="name"> Name </label>
+          <input type="text" id="name" />
+        </div>
+
+        <div>
+          <label type="text" for="email"> Email </label>
+          <input type="email" id="email" />
+        </div>
+
+        <div>
+          <label type="Number" for="phone"> Phone Number </label>
+          <input type="tel" id="phone" />
+        </div>
+
+        <div>
+          <label type="text" for="subject"> Subject </label>
+          <select id="subject">
+            <option></option>
+            <option>Fullstack Developer</option>
+            <option>Devops Developer</option>
+            <option>Backend Developer</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message"> Your Message </label>
+          <textarea id="message"></textarea>
+        </div>
+        <button type="button" onclick="submitHandler()">Submit</button>
+      </div>
+    </form>
+
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>

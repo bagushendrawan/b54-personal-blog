@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Project</title>
+    <script
+      src="https://kit.fontawesome.com/dbf5af6bac.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
+    <link rel="stylesheet" href="./assets/css/blog.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  </head>
+  <body style="background-color: white;">
+    <nav class="nav-bar">
+      <ul>
+        <li><img src="./assets/img/letter-b.png" alt="web-icon" /></li>
+        <a href="./index.html"><li class="nav-link">Home</li></a>
+        <a href="#"><li class="nav-link active">Project</li></a>
+      </ul>
+      <a href="./contact-form.html">
+        <button class="btn-active">Contact Me</button>
+    </a>
+    </nav>
+
+    <section id="project-form">
+        <form>
+            <div class="form">
+                <h2>ADD MY PROJECT</h2>
+                <div class="name">
+                    <label for="name"> Project Name </label>
+                    <input type="text" id="name" />
+                </div>
+
+                <div class="date">
+                    <div>
+                        <label for="start"> Start Date </label>
+                        <input type="date" id="start" />
+                    </div>
+                    <div>
+                        <label for="end"> End Date </label>
+                        <input type="date" id="end" />
+                    </div>
+                </div>
+
+                <div class="desc">
+                    <label for="desc"> Description </label>
+                    <textarea id="desc"> </textarea>
+                </div>
+
+                <div>
+                    <label for="name"> Technologies </label>
+                    <div class="check">
+                        <div>
+                            <input class="checkval" type="checkbox" id="node" name="node" value="node">
+                            <label for="node">Node Js</label>
+                        </div>
+                        <div>
+                            <input class="checkval" type="checkbox" id="next" name="next" value="next">
+                            <label for="next">Next Js</label>
+                        </div>
+                        <div>
+                            <input class="checkval" type="checkbox" id="react" name="react" value="react">
+                            <label for="react">React Js</label>
+                        </div>
+                        <div>
+                            <input class="checkval" type="checkbox" id="ts" name="ts" value="typeScript">
+                            <label for="ts">TypeScript</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="file">
+                    <label for="file"> Upload Image </label>
+                    <input type="file" id="file" />
+                    
+                </div>
+                <button type="input" onclick="addProject(event)">Submit</button>
+            </div>
+        </form>
+    </section>
+    <section id="gallery">
+        <div class="card">
+            <img src="./assets/img/bagus.jpg" />
+            <div>
+              <h3>Bagus Hendrawan</h3>
+              <p id="duration">Fullstack Developer</p>
+
+              <p id="syn">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+              <div class="icons">
+                <i class="fa-brands fa-google-play"></i>
+                <i class="fa-brands fa-android"></i>
+                <i class="fa-brands fa-java"></i>
+              </div>
+
+              <div>
+                <button type="button">Edit</button>
+                <button type="button">Delete</button>
+              </div>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./assets/img/bagus.jpg" />
+            <div>
+              <h3>Bagus Hendrawan</h3>
+              <p id="duration">Fullstack Developer</p>
+
+              <p id="syn">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+              <div class="icons">
+                <i class="fa-brands fa-google-play"></i>
+                <i class="fa-brands fa-android"></i>
+                <i class="fa-brands fa-java"></i>
+              </div>
+
+              <div>
+                <button type="button">Edit</button>
+                <button type="button">Delete</button>
+              </div>
+            </div>
+        </div>
+        <div class="card">
+            <img src="./assets/img/bagus.jpg" />
+            <div>
+              <h3>Bagus Hendrawan</h3>
+              <p id="duration">Fullstack Developer</p>
+
+              <p id="syn">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+              <div class="icons">
+                <i class="fa-brands fa-google-play"></i>
+                <i class="fa-brands fa-android"></i>
+                <i class="fa-brands fa-java"></i>
+              </div>
+
+              <div>
+                <button type="button">Edit</button>
+                <button type="button">Delete</button>
+              </div>
+            </div>
+        </div>
+        
+    </section>
+    <script src="./assets/js/project.js"></script>
+  </body>
+</html>
