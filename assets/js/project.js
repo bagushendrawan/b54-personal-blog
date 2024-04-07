@@ -24,6 +24,11 @@ function addProject(event) {
     return alert("Please entered your image!");
   }
 
+  if(startdate > enddate)
+  {
+    return alert("Start date cannot started earlier than end date");
+  }
+
   let timeDifferencesMs = new Date(enddate) - new Date(startdate);
   let differencesDay = Math.floor(timeDifferencesMs / (1000 * 60 * 60 * 24));
   let differenceMonth = Math.floor(differencesDay / 30.437);
