@@ -1,6 +1,10 @@
-body {
+* {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+body {
   background-color: rgb(209, 209, 209);
 }
 
@@ -21,7 +25,8 @@ body {
 
 .desc p {
   text-align: justify;
-  font-weight: 100;
+  font-weight: 400;
+  margin-bottom: 5%;
 }
 
 .desc a {
@@ -59,8 +64,9 @@ body {
 }
 
 .card {
-  margin: 1rem auto;
+  margin: auto auto;
   width: 30%;
+  height: 100%;
   text-align: center;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.115);
   border-radius: 8px;
@@ -75,7 +81,7 @@ body {
 .card p {
   margin: 0.25rem;
   font-size: 10pt;
-  font-weight: 100;
+  font-weight: 400;
 }
 
 .card h3 {
@@ -95,7 +101,7 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.02);
   justify-content: space-between;
   align-items: center;
-  padding: 0 72px;
+  padding: 0 5%;
 }
 
 img {
@@ -122,7 +128,7 @@ ul li {
   margin: 0 15px;
 }
 
-.nav-bar button {
+nav button {
   cursor: pointer;
   background-color: black;
   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
@@ -132,6 +138,38 @@ ul li {
   font-size: 11pt;
   padding: 5px 15px;
 }
+
+#btn-contact-nav {
+  display: inline-block;
+}
+
+#hamburger-menu {
+  display: none;
+  width: 100%;
+  background-color: rgb(224, 224, 224);
+  flex-direction: column;
+  align-items: center;
+  list-style-type: none;
+}
+
+#hamburger-menu a {
+  margin-top: 0.75rem;
+  text-decoration: none;
+  color: black;
+}
+
+#hamburger-menu button {
+  margin-bottom: 0.75rem;
+}
+
+#x-btn {
+  display: none;
+}
+
+#bars-btn {
+  display: inline-block;
+}
+
 /* ----- */
 
 /* Form */
@@ -193,6 +231,58 @@ form button {
   font-weight: bold;
   padding: 5px 15px;
 }
+
+/* Mobile */
+
+@media only screen and (max-width: 720px)
+{
+
+/* Index */
+  body {
+    font-size: 11pt;
+  }
+
+  .nav-bar ul a {
+    display: none;
+  }
+
+  .main {
+    flex-direction: column;
+  }
+
+  .desc {
+    width: 80%;
+  }
+
+  h2 {
+    margin-top: 5%;
+  }
+
+  .social {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .card {
+    width: 60%;
+  }
+
+  /* Contact Form */
+  form {
+    width: 60%;
+  }
+
+  form h2 {
+    margin-top: 10%;
+  }
+
+  form button {
+    margin-bottom: 5%;
+  }
+
+}
+
+
 /* ----- */
 .active {
   font-weight: bold;

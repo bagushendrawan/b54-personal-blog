@@ -15,16 +15,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
   </head>
   <body style="background-color: white;">
-    <nav class="nav-bar">
-      <ul>
-        <li><img src="./assets/img/letter-b.png" alt="web-icon" /></li>
-        <a href="./index.html"><li class="nav-link">Home</li></a>
-        <a href="#"><li class="nav-link active">Project</li></a>
-      </ul>
-      <a href="./contact-form.html">
-        <button class="btn-active">Contact Me</button>
-    </a>
-    </nav>
+    <nav>
+        <div class="nav-bar">
+          <ul>
+            <li><img src="./assets/img/letter-b.png" alt="web-icon" /></li>
+            <a href="./index.html"><li class="nav-link active">Home</li></a>
+            <a href="./new-project.html"><li class="nav-link">Project</li></a>
+          </ul>
+    
+          <div id="btn-right">
+            <a href="javascript:void(0);" class="bars-icon" onclick="hamburgerMenu()">
+              <i class="fa-solid fa-bars fa-lg" id="bars-btn"></i>
+              <i class="fa-solid fa-xmark fa-lg" id="x-btn"></i>
+            </a>
+      
+            <a href="./contact-form.html" id="btn-contact-nav"
+              ><button class="btn-active">Contact Me</button></a
+            >
+          </div>  
+        </div>
+        
+        <div id="hamburger-menu">
+          <a href="./index.html"><li class="nav-link active">Home</li></a>
+          <a href="./new-project.html"><li class="nav-link">Project</li></a>
+          <a href="./contact-form.html"
+          ><button class="btn-active">Contact Me</button></a>
+        </div>
+    
+      </nav>
 
     <section id="project-form">
         <form>
@@ -85,5 +103,6 @@
     <section id="gallery">
     </section>
     <script src="./assets/js/project.js"></script>
+    <script src="./assets/js/interact.js"></script>
   </body>
 </html>

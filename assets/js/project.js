@@ -47,7 +47,7 @@ function addProject(event) {
     checkArr.push(check[i].value);
   }
 
-  dataProject.push({
+  dataProject.unshift({
     name: name,
     start: startdate,
     end: enddate,
