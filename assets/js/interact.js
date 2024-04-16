@@ -6,7 +6,7 @@ let contact_nav = document.getElementById("btn-contact-nav");
 
 function updateSize() {
   console.log(window.innerWidth);
-    if(window.innerWidth > 640)
+    if(window.innerWidth > 720)
     {
         console.log(window.innerWidth);
         hamburg.style.display = "none";
