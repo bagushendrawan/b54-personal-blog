@@ -404,6 +404,10 @@ h2 {
     font-size: 11pt;
   }
 
+  .nav-bar ul a {
+    display: none;
+  }
+
   /* New Project */
   .form {
     width: 60%;
