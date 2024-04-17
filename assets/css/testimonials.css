@@ -1,0 +1,161 @@
+h1 {
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+
+.testi-div {
+    text-align: center;
+}
+
+#testimonials{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#testimonials>a {
+    text-decoration: none;
+    margin: 0;
+}
+
+.testi-card {
+    margin: 2rem 1rem;
+    width: 350px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.115);
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 4px;
+}
+
+.testi-card>img {
+    width: 95%;
+    height: 60%;
+    margin: 2% auto;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.testi-card p {
+    font-size: 10pt;
+    margin: auto;
+    width: 92%;
+    color: black;
+}
+
+#testi-desc {
+    text-align: justify;
+}
+
+#testi-name{
+    text-align: end;
+    font-weight: 700;
+}
+
+#addTestimonials {
+    position: fixed;
+    left: 32px;
+    bottom: 32px;
+    border: none;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.225);
+}
+
+#addTestimonials i:hover {
+    background-color: rgb(0, 130, 251);
+    cursor: pointer;
+}
+
+#addTestimonials i{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 8px;
+    background-color: rgb(0, 155, 251);
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.225);
+    color: white;
+    border-radius: 4px;
+}
+
+/* Testimonial Form */
+
+#testi-form {
+    display: none;
+}
+
+.form-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 475px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.115);
+    background-color: rgb(235, 235, 235);
+    padding: 0.5rem;
+    border-radius: 8px;
+    z-index: 9;
+    padding: 3%;
+}
+
+.form-popup h2 {
+    margin-top: 3%;
+}
+.check div input[type="radio"] {
+    border: none;
+    padding: 0.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
+    color: rgba(0, 0, 0, 0.375);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.075);
+  }
+
+  .name input {
+    border: none;
+    height: 33px;
+    border-radius: 4px;
+    padding: 0.5rem;
+    color: rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.075);
+  }
+
+  .testimony textarea {
+    border: none;
+    padding: 0.5rem;
+    color: rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.075);
+    resize: none;
+    height: 100px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+
+  .file input {
+    height: 40px;
+    width: 100%;
+    }
+
+  .check {
+    width: 100%;
+  }
+
+  /* Mobile */
+
+  @media only screen and (max-width: 720px)
+  {
+    #addTestimonials {
+        left: 12px;
+        bottom: 18px;
+    }
+    .form-popup {
+        width: 75%;
+    }
+    
+  }

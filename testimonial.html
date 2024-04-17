@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico" />
+    <link rel="stylesheet" href="./assets/css/blog.css" />
+    <link rel="stylesheet" href="./assets/css/testimonials.css" />
+    <script
+      src="https://kit.fontawesome.com/dbf5af6bac.js"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="nav-bar">
+          <ul>
+            <li><img src="./assets/img/letter-b.png" alt="web-icon" /></li>
+            <a href="./index.html"><li class="nav-link">Home</li></a>
+            <a href="./new-project.html"><li class="nav-link">Project</li></a>
+            <a href="./testimonial.html"><li class="nav-link active">Testimonial</li></a>
+          </ul>
+    
+          <div id="btn-right">
+            <a href="javascript:void(0);" class="bars-icon" onclick="hamburgerMenu()">
+              <i class="fa-solid fa-bars fa-lg" id="bars-btn"></i>
+              <i class="fa-solid fa-xmark fa-lg" id="x-btn"></i>
+            </a>
+      
+            <a href="./contact-form.html" id="btn-contact-nav"
+              ><button class="btn-active">Contact Me</button></a
+            >
+          </div>  
+        </div>
+        
+        <div id="hamburger-menu">
+          <a href="./index.html"><li class="nav-link ">Home</li></a>
+          <a href="./new-project.html"><li class="nav-link">Project</li></a>
+          <a href="./testimonial.html"><li class="nav-link active">Testimonial</li></a>
+          <a href="./contact-form.html"
+          ><button class="btn-active">Contact Me</button></a>
+        </div>
+    
+    </nav>
+
+      <div class="testi-div">
+        <div>
+            <h1>My Testimonials</h1>
+            <button id="addTestimonials" onclick="testimonialBtn()"><i id="testimonialIcon" class="fa-solid fa-plus fa-lg" id="bars-btn"></i></button>
+        </div>
+        
+        <section id="testimonials">
+        </section>
+      </div>
+
+      <div class="form-popup" id="testi-form">
+        <div>
+            <h2>Fill form below</h2>
+        </div>
+        <div>
+            <form action="">
+                <div class="name">
+                    <label for="name"> Name </label>
+                    <input type="text" id="name" />
+                </div>
+                <div class="testimony">
+                    <label for="testimony"> Testimony </label>
+                    <textarea id="testimony"> </textarea>
+                </div>
+                <div class="check">
+                        <div>
+                            <input class="checkval" type="radio" id="individual" name="sender" value="individual">
+                            <label for="individual">Individual</label>
+                        </div>
+                        <div>
+                            <input class="checkval" type="radio" id="company" name="sender" value="company">
+                            <label for="company">Company</label>
+                        </div>
+                </div>
+                <div class="file">
+                    <label for="file"> Upload Your Image </label>
+                    <input type="file" id="file" />
+                </div>      
+                <button type="input" onclick="testimonialsAddButton(event)">Submit</button>  
+            </form>
+        </div>
+      </div>
+
+<script src="./assets/js/interact.js"></script>
+<script src="./assets/js/testimonial.js"></script>
+</body>
+</html>
