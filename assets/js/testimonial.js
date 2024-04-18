@@ -1,18 +1,20 @@
+let testimonialsOrigin = [];
 let testimonials = [];
 
 class Testimonials {
-    constructor(img, desc, name)
+    constructor(img, desc, name, rating)
     {
         this.img = img;
         this.desc = desc;
         this.name = name;
+        this.rating = rating;
     }
 }
 
 class CompanyTestimonials extends Testimonials {
-    constructor(img, desc, name)
+    constructor(img, desc, name, rating)
     {
-        super(img, desc, name + " Company");
+        super(img, desc, name + " Company", rating);
     }
 }
 
@@ -22,22 +24,45 @@ const classes = {
 }
 
 class DynamicClass {
-    constructor (className, img, desc, name) {
-        return new classes[className](img, desc, name);
+    constructor (className, img, desc, name, rating) {
+        return new classes[className](img, desc, name, rating);
     }
+}
+
+function filterBtn(id)
+{
+    let button = document.getElementById(id).value;
+    console.log(button);
+    
+    if(button != 0)
+    {
+        testimonials = testimonialsOrigin.filter((item) => {
+            return item.rating == button;
+        })
+    } else {
+        testimonials = testimonialsOrigin;
+    }
+    
+    addTestimonials(testimonials);
+
+    console.log(testimonials);
 }
 
 function testimonialsAddButton (event) {
     event.preventDefault();
     let name = document.getElementById("name").value;
     let testimony = document.getElementById("testimony").value;
+    let senderBtn;
+    let rating;
+    let checked = false;
     let image = document.getElementById("file").files[0];
     let imageURL = URL.createObjectURL(image);
-
+    //console.log(document.getElementById('rating-radio').checked);
     let sender = "";
 
     if (document.getElementById('individual').checked || document.getElementById('company').checked) {
-        if(sender == 'individual'){
+        senderBtn = document.querySelector('input[name="sender"]:checked').value;
+        if(senderBtn == 'individual'){
             sender = "Testimonials";
         }else{
             sender = "CompanyTestimonials";
@@ -46,10 +71,26 @@ function testimonialsAddButton (event) {
         return alert("Please select the name options!");
     }
 
-    const obj = new DynamicClass(sender, imageURL,testimony,name);
-    testimonials.unshift(obj);
-    console.log(testimonials);
-    addTestimonials(testimonials);
+    
+    document.querySelectorAll('input[name="rating-name"]').forEach((item) => {
+        if(item.checked)
+        {
+            checked = true;
+        }
+    })
+
+    //console.log(checked);
+
+    if (!checked) {
+        return alert("Please select the rating options!");
+    } else {
+        rating = document.querySelector('input[name="rating-name"]:checked').value;
+    }
+
+    const obj = new DynamicClass(sender, imageURL,testimony,name, rating);
+    testimonialsOrigin.unshift(obj);
+    //console.log(testimonials);
+    addTestimonials(testimonialsOrigin);
 }
 
 function addTestimonials (testimonials) {
@@ -60,17 +101,19 @@ function addTestimonials (testimonials) {
     // let testimonials = [testi1,testi2,testi3];
     let html = "";
 
-    for(let i = 0; i<testimonials.length; i++)
-    {
-            html += 
+    testimonials.forEach((item) => {
+        html += 
             `<a href="#">
             <div class="testi-card">
-                <img src="${testimonials[i].img}" alt="#" id="testi-img"/>
-                <p id="testi-desc">${testimonials[i].desc}</p>
-                <p id="testi-name">- ${testimonials[i].name}</p>
+                <img src="${item.img}" alt="#" id="testi-img"/>
+                <p id="testi-desc">${item.desc}</p>
+                <div>
+                <p id="testi-rate">${item.rating}<i class="fa-solid fa-star fa-xs"></i></p>
+                <p id="testi-name">- ${item.name}</p>
+                </div>
             </div>
             </a>`
-    }
+    })
 
     document.getElementById("testimonials").innerHTML = html;
 }

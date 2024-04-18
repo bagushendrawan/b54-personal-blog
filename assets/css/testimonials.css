@@ -48,13 +48,29 @@ h1 {
     color: black;
 }
 
+.testi-card div{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 4%;
+    margin-bottom: 2%;
+    
+}
+
 #testi-desc {
     text-align: justify;
 }
 
 #testi-name{
-    text-align: end;
+    width: auto;
+    margin: 0;
     font-weight: 700;
+}
+
+#testi-rate{
+    width: auto;
+    font-size: 8pt;
+    margin: 0;
+    font-weight: 600;
 }
 
 #addTestimonials {
@@ -92,11 +108,11 @@ h1 {
 
 .form-popup {
     position: fixed;
-    top: 50%;
+    top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50%;
-    height: 475px;
+    height: 480px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.115);
     background-color: rgb(235, 235, 235);
     padding: 0.5rem;
@@ -106,7 +122,7 @@ h1 {
 }
 
 .form-popup h2 {
-    margin-top: 3%;
+    margin-top: 0;
 }
 .check div input[type="radio"] {
     border: none;
@@ -142,8 +158,64 @@ h1 {
     width: 100%;
     }
 
+    .file {
+        width: 60%;
+    }
+
   .check {
     width: 100%;
+  }
+
+  #rating .check {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  }
+
+  .bottom-form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+  }
+
+  .bottom-form button {
+    margin: 0;
+    margin-bottom: 0.9rem;
+    margin-right: 2rem;
+  }
+
+  /* Filter */
+
+  #filter {
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+  }
+
+  #filter button {
+    cursor: pointer;
+    display: flex;
+    text-align: center;
+    background-color: black;
+    box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.5);
+    border: none;
+    color: white;
+    width: fit-content;
+    text-align: center;
+    border-radius: 16px;
+    font-size: 11pt;
+    font-weight: bold;
+    padding: 8px 20px;
+    margin-top: 12px;
+    margin-bottom: 32px;
+  }
+
+  #filter button p {
+    width: fit-content;
+    padding-left: 0.5rem;
+  }
+
+  #filter button:hover {
+    background-color: rgb(80, 80, 80);
   }
 
   /* Mobile */
@@ -157,5 +229,15 @@ h1 {
     .form-popup {
         width: 75%;
     }
+
+    #filter {
+        width: 90%;
+        margin: auto;
+    }
+
+    #filter button {
+        font-size: 9pt;
+    }
+    
     
   }

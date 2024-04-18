@@ -51,11 +51,23 @@
         <div>
             <h1>My Testimonials</h1>
             <button id="addTestimonials" onclick="testimonialBtn()"><i id="testimonialIcon" class="fa-solid fa-plus fa-lg" id="bars-btn"></i></button>
+            <!-- <button id="changeFilters" onclick=""><i id="filterIcon" class="fa-solid fa-caret-down fa-lg" id="bars-btn"></i>Filter</button> -->
+
+            <div class="filter-popup" id="filter">
+              <button id="fl-0" type="input" value="0" onclick="filterBtn('fl-0')">No Filter</button>
+              <button id="fl-1" type="input" value="1" onclick="filterBtn('fl-1')"><p>1<i class="fa-solid fa-star"></i></p></button>
+              <button id="fl-2" type="input" value="2" onclick="filterBtn('fl-2')"><p>2<i class="fa-solid fa-star"></i></p></button>
+              <button id="fl-3" type="input" value="3" onclick="filterBtn('fl-3')"><p>3<i class="fa-solid fa-star"></i></p></button>
+              <button id="fl-4" type="input" value="4" onclick="filterBtn('fl-4')"><p>4<i class="fa-solid fa-star"></i></p></button>
+              <button id="fl-5" type="input" value="5" onclick="filterBtn('fl-5')"><p>5<i class="fa-solid fa-star"></i></button>
+            </div>
         </div>
         
         <section id="testimonials">
         </section>
       </div>
+
+      
 
       <div class="form-popup" id="testi-form">
         <div>
@@ -65,12 +77,38 @@
             <form action="">
                 <div class="name">
                     <label for="name"> Name </label>
-                    <input type="text" id="name" />
+                    <input type="text" id="name" required/>
                 </div>
                 <div class="testimony">
                     <label for="testimony"> Testimony </label>
-                    <textarea id="testimony"> </textarea>
+                    <textarea id="testimony" required> </textarea>
                 </div>
+                <div id="rating">
+                  <label for="rating"> Ratings </label>
+                  <div class="check">
+                    <div>
+                        <input class="checkval" type="radio" id="rating-radio" name="rating-name" value="1">
+                        <label for="individual">1</label>
+                    </div>
+                    <div>
+                        <input class="checkval" type="radio" id="rating-radio" name="rating-name" value="2">
+                        <label for="company">2</label>
+                    </div>
+                    <div>
+                      <input class="checkval" type="radio" id="rating-radio" name="rating-name" value="3">
+                      <label for="individual">3</label>
+                    </div>
+                    <div>
+                        <input class="checkval" type="radio" id="rating-radio" name="rating-name" value="4">
+                        <label for="company">4</label>
+                    </div>
+                    <div>
+                      <input class="checkval" type="radio" id="rating-radio" name="rating-name" value="5">
+                      <label for="company">5</label>
+                    </div>
+                  </div>
+                </div>
+
                 <div class="check">
                         <div>
                             <input class="checkval" type="radio" id="individual" name="sender" value="individual">
@@ -81,11 +119,14 @@
                             <label for="company">Company</label>
                         </div>
                 </div>
-                <div class="file">
+                
+                <div class="bottom-form">
+                  <div class="file">
                     <label for="file"> Upload Your Image </label>
-                    <input type="file" id="file" />
-                </div>      
+                    <input type="file" id="file" required/>
+                  </div>      
                 <button type="input" onclick="testimonialsAddButton(event)">Submit</button>  
+                </div>
             </form>
         </div>
       </div>

@@ -7,10 +7,10 @@ let testimonialForm = document.getElementById("testi-form");
 
 
 function updateSize() {
-  console.log(window.innerWidth);
+  //console.log(window.innerWidth);
     if(window.innerWidth > 720)
     {
-        console.log(window.innerWidth);
+        //console.log(window.innerWidth);
         hamburg.style.display = "none";
         bars.style.display = "none";
         contact_nav.style.display = "inline-block";
@@ -35,7 +35,7 @@ function hamburgerMenu() {
 
 function testimonialBtn ()
 {
-  console.log(testimonialForm)
+  //console.log(testimonialForm)
   if(testimonialForm.style.display == "block")
   {
     testimonialForm.style.display = "none";
