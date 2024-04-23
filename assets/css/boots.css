@@ -1,0 +1,42 @@
+body {
+    background-color: rgb(230, 230, 230);
+}
+
+.text-none{
+    text-decoration: none;
+}
+
+.nav-font {
+    font-weight: 500;
+}
+
+.icons img{
+    height: 38px;
+    margin: auto 1rem;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.btn-noborder:hover {
+    background-color: white;
+    color: black;
+}
+
+.black {
+ background-color: rgb(32, 32, 32);
+}
+
+button.black:hover {
+    background-color: rgb(64, 64, 64);
+}
+
+a.black:hover {
+    background-color: rgb(64, 64, 64);
+}
+
+@media only screen and (max-width:768px)
+{
+
+}
