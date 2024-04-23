@@ -72,36 +72,40 @@ function viewProject() {
     data.checkbox.forEach((check) => {
       switch (check) {
         case "node":
-          checkboxes += `<img class="logo" src="./assets/img/icon/node-js.png" />`;
+          checkboxes += `<img src="../assets/img/icon/node-js.png" style="height:1.5rem" />`;
           break;
         case "react":
-          checkboxes += `<img class="logo" src="./assets/img/icon/atom.png" />`;
+          checkboxes += `<img src="../assets/img/icon/atom.png" style="height:1.5rem" />`;
           break;
         case "next":
-          checkboxes += `<img class="logo" src="./assets/img/icon/next-js-seeklogo.svg" />`;
+          checkboxes += `<img src="../assets/img/icon/next-js-seeklogo.svg" style="height:1.5rem" />`;
           break;
         case "typeScript":
-          checkboxes += `<img class="logo" src="./assets/img/icon/typescript.png" />`;
+          checkboxes += `<img src="../assets/img/icon/typescript.png" style="height:1.5rem" />`;
           break;
       }
     });
 
     html += `
-    <a href="./project-page.html">
-        <div class="card">
-            <img src="${data.img}" />
-            <div>
-                <h3>${data.name}</h3>
-                <p id="duration">${data.duration}</p>
-                <p id="syn">${data.desc}</p>
-                <div class="icons">${checkboxes}</div>
-                <div>
-                    <button type="button">Edit</button>
-                    <button type="button">Delete</button>
-                </div>
-            </div>
-        </div>
+    <a href="./project-page.html" class="text-none text-dark">
+          <div class="card p-2" style="width: 18rem;">
+            <img src="${data.img}" class="card-img-top" alt="..." style="height: 200px; object-fit: cover;">
+            <div class="card-body">
+              <h5 class="card-title">${data.name}</h5>
+              <p class="card-text" id="duration">${data.duration}</p>
+              <p class="card-text"  id="syn">${data.desc}</p>
+              <div class="icons mb-4">${checkboxes}</div>
+
+              <div class="row g-2 mx-a d-flex justify-content-center">
+                <button href="#" class="col-5 btn btn-primary me-4 border-0 black">Edit</button>
+                <button href="#" class="col-5 btn btn-primary border-0 black">Delete</button>
+              </div>
+              
+              </div>
+          </div>
     </a>`;
+
+
   });
 
   document.getElementById("gallery").innerHTML = html;
