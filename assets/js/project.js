@@ -65,9 +65,10 @@ function addProject(event) {
   viewProject();
 }
 
-function viewProject() {
+function viewProject(dataPro) {
   let html = "";
-  dataProject.forEach((data) => {
+  dataPro.forEach((data) => {
+    
     let checkboxes = "";
     data.checkbox.forEach((check) => {
       switch (check) {
