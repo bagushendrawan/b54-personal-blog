@@ -8,6 +8,7 @@ const path = require('node:path');
 const port = 5000;
 
 app.use(express.urlencoded({extended: false}));
+app.use(express.json());
 app.use("/assets", express.static(path.join(__dirname, "./assets")));
 
 app.set('view engine', 'hbs');
@@ -27,10 +28,11 @@ app.get('/new-project', function (req, res) {
     res.render("new-project", {dataProject});
   });
 
-app.get('/project-page/:id', function (req, res) {
+app.get('/project-page:id', function (req, res) {
   const id = parseInt(req.params.id);
-  const data = dataProject[id];
-    res.render("project-page", {data});
+  const dataArr = getItemById(dataProject,id);
+  const data = dataArr[0];;
+  res.render("project-page", {data});
   });
 
 app.post('/new-project', function (req, res) {
@@ -50,10 +52,94 @@ app.post('/new-project', function (req, res) {
         file,
         iconsArray
     })
-    console.log("Data has been added!");
+    //console.log("Data has been added!");
     console.log(dataProject);
     res.redirect("new-project");
   });
+
+app.get('/edit-project:id', function (req, res) {
+    const {id } = req.params;
+    const dataArr = getItemById(dataProject,parseInt(id));
+    const data = dataArr[0];;
+    console.log("dataArr" + dataArr);
+    let iconIdAray = {};
+
+    // console.log(data);
+    // console.log(data.iconsArray);
+    // console.log(typeof(data.iconsArray));
+
+    if(data.iconsArray !== undefined)
+    {
+      data.iconsArray.forEach((val) => {
+        switch(val) {
+          case "../assets/img/icon/node-js.png":
+            iconIdAray.node = true;
+          break;
+          case "../assets/img/icon/atom.png":
+            iconIdAray.react = true;
+          break;
+          case "../assets/img/icon/next-js-seeklogo.svg":
+            iconIdAray.next = true;
+          break;
+          case "../assets/img/icon/typescript.png":
+            iconIdAray.ts = true;
+          break;
+          default:
+            console.log("Check the iconsArray");
+            break;
+        }
+      })
+    }
+
+    data["iconIdArray"] = iconIdAray;
+    // console.log(data["iconIdArray"]);
+    // console.log(data["iconIdArray"].next);
+    res.render("edit-project", {data});
+  });
+
+app.patch('/edit-project:id',function (req, res) {
+    const {id } = req.params;
+    const dataPatch = req.body;
+    //console.log("here i come");
+    //console.log(dataPatch);
+    dataProject.splice(parseInt(id)-1, 1, dataPatch);
+    res.redirect(301,"new-project");
+  });
+
+app.post('/edit-project:id',function (req, res) {
+    const {id } = req.params;
+    const {name, start, end, desc, file, icons} = req.body;
+
+    const duration = calculateDuration(start, end);
+    const iconsArray = iterateIcons(icons);
+
+    const data = {
+      id: parseInt(id),
+      name,
+      start,
+      end,
+      duration,
+      desc,
+      file,
+      iconsArray
+    }
+    //console.log("here i come");
+    //console.log(icons);
+    //console.log("id" + id);
+    dataProject.splice(getindexbyID(dataProject,id), 1, data);
+    //console.log(dataProject);
+    res.render("new-project", {dataProject});
+  });
+  
+
+app.delete('/new-project/:id', function (req, res) {
+    const {id } = req.params;
+    dataProject = deleteItemById(dataProject, parseInt(id));
+    //console.log(dataProject);
+    //res.redirect("new-project");
+  });
+
+
   
 app.listen(port);
 
@@ -95,4 +181,36 @@ function iterateIcons(arr)
 
         return checkboxes;
     }
+}
+
+function deleteItemById(obj,id) {
+  obj = obj.filter((item) => {
+    //console.log(typeof(item.id) + "/" + typeof(id));
+    return item.id !== id
+  });
+  
+  //console.log("sucessfully deleted!");
+  return obj;
+}
+
+function getItemById(obj,id) {
+  obj = obj.filter((item) => {
+    return item.id === id
+  });
+  
+  //console.log("sucessfully deleted!");
+  //console.log("-------" + JSON.stringify(obj));
+  return obj;
+}
+
+function getindexbyID(obj,id)
+{
+ const index = obj.filter((val, ind) => {
+    if(val.id === id)
+    {
+      return ind
+    }
+  })
+
+  return index;
 }

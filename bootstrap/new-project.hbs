@@ -111,7 +111,7 @@
 
       <section class="container-md d-flex my-5 flex-wrap gap-4 mx-auto justify-content-center" id="gallery">
         {{#each dataProject as |project|}}
-        <a href="/project-page/{{project.id}}" class="text-none text-dark">
+        <a href="/project-page{{project.id}}" class="text-none text-dark">
           <div class="card p-2" style="width: 18rem;">
             <img src="{{project.file}}" class="card-img-top" alt="..." style="height: 200px; object-fit: cover;">
             <div class="card-body">
@@ -125,8 +125,13 @@
                 {{/each}}
               </div>
               <div class="row g-2 mx-a d-flex justify-content-center">
-                <button href="#" class="col-5 btn btn-primary me-4 border-0 black">Edit</button>
-                <button href="#" class="col-5 btn btn-primary border-0 black">Delete</button>
+                <form class="col-5" action="/edit-project{{project.id}}" method="get">
+                <button type="submit" class="btn btn-primary border-0 black">Edit</button>
+                </form>
+
+                <form class="col-5" onsubmit="deleteProject({{project.id}})">
+                <button type="submit" class="btn btn-primary border-0 black">Delete</button>
+                </form>
               </div>
               
               </div>
