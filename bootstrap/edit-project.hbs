@@ -37,13 +37,13 @@
         </div>
       </nav>
 
-      <form class="mx-auto mt-5 w-50" id="forms" action="/edit-project{{data.id}}" method="post">
+      <form class="mx-auto mt-5 w-50" id="forms"  onsubmit="editProject({{data.id}})" action="/confirm-edit" method="post">
         <h2 class="text-center mb-4">EDIT MY PROJECT</h2>
         <div class="contact-form container-md flex-column">
 
             <div class="mb-3">
                 <label for="name" class="form-label">Project Name</label>
-                <input name="name" id="name" type="text" class="form-control" id="name" placeholder="John Doe" value="{{data.name}}">
+                <input  type="text" class="form-control" id="name" placeholder="John Doe" value="{{data.name}}">
             </div>
   
             <div class="row g-3 align-items-center">
@@ -52,7 +52,7 @@
                   <label for="start" class="col-form-label">Start Date</label>
                 </div>
                 <div class="col-auto">
-                  <input type="date" name="start" id="start" class="form-control" style="color:rgba(0, 0, 0, 0.75);" value="{{data.start}}">
+                  <input type="date" id="start" class="form-control" style="color:rgba(0, 0, 0, 0.75);" value="{{data.start}}">
                 </div>
               </div>
               <div class="col-md-6">
@@ -60,22 +60,22 @@
                   <label for="end" class="col-form-label">End Date</label>
                 </div>
                 <div class="col-auto">
-                  <input type="date" name="end" id="end" class="form-control" style="color:rgba(0, 0, 0, 0.75);" value="{{data.end}}">
+                  <input type="date" id="end" class="form-control" style="color:rgba(0, 0, 0, 0.75);" value="{{data.end}}">
                 </div>
               </div>
             </div>
 
             <div class="mt-4 mb-3">
               <label for="desc" class="form-label">Description</label>
-              <textarea class="form-control" name="desc" id="desc" rows="3">{{data.desc}}</textarea>
+              <textarea class="form-control" id="desc" rows="3">{{data.desc}}</textarea>
             </div>
 
             <div class="row g-1 mb-3">
               <div class="col-md-6 form-check">
                 {{#if data.iconIdArray.node}}
-                <input class="form-check-input" type="checkbox" name="icons" id="node" name="check" value="node" checked>
+                <input class="form-check-input" type="checkbox"  id="node" value="node" checked>
                 {{else}}
-                <input class="form-check-input" type="checkbox" name="icons" id="node" name="check" value="node">
+                <input class="form-check-input" type="checkbox"  id="node" value="node">
                 {{/if}}
                 <label class="form-check-label" for="node">
                   Node Js
@@ -83,9 +83,9 @@
               </div>
               <div class="col-md-6 form-check">
                 {{#if data.iconIdArray.next}}
-                <input class="form-check-input" type="checkbox" name="icons" id="next" name="check" value="next" checked>
+                <input class="form-check-input" type="checkbox"  id="next" value="next" checked>
                 {{else}}
-                <input class="form-check-input" type="checkbox" name="icons" id="next" name="check" value="next">
+                <input class="form-check-input" type="checkbox"  id="next" value="next">
                 {{/if}}
                 <label class="form-check-label" for="next">
                   Next Js
@@ -93,9 +93,9 @@
               </div>
               <div class="col-md-6 form-check">
                 {{#if data.iconIdArray.react}}
-                <input class="form-check-input" type="checkbox" name="icons" id="react" name="check" value="react" checked>
+                <input class="form-check-input" type="checkbox"  id="react" value="react" checked>
                 {{else}}
-                <input class="form-check-input" type="checkbox" name="icons" id="react" name="check" value="react">
+                <input class="form-check-input" type="checkbox"  id="react" value="react">
                 {{/if}}
                 <label class="form-check-label" for="react">
                   React Js
@@ -103,9 +103,9 @@
               </div>
               <div class="col-md-6 form-check">
                 {{#if data.iconIdArray.ts}}
-                <input class="form-check-input" type="checkbox" name="icons" id="ts" name="check" value="typeScript" checked>
+                <input class="form-check-input" type="checkbox"  id="ts" value="typeScript" checked>
                 {{else}}
-                <input class="form-check-input" type="checkbox" name="icons" id="ts" name="check" value="typeScript">
+                <input class="form-check-input" type="checkbox"  id="ts" value="typeScript">
                 {{/if}}
                 <label class="form-check-label" for="ts">
                   TypeScript
@@ -114,8 +114,8 @@
             </div>
 
           <div class="mb-3">
-            <label for="formFile" class="form-label">Upload Image</label>
-            <input class="form-control" type="file" name="file" id="file">
+            <label for="formFile" class="form-label">Upload Image {{data.file}}</label>
+            <input class="form-control" type="file" id="file">
           </div>
   
           <div>
