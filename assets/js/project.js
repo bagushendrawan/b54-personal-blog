@@ -33,7 +33,7 @@ async function editProject(id)
     iconsArray: icons
   }
 
- const response = fetch(`/patch-project`,
+ const response = fetch(`/patch-project/${id}`,
 		{
 			method: 'PATCH',
       headers: {

@@ -7,7 +7,8 @@ const path = require("node:path");
 const multer = require("multer");
 const fs = require('fs');
 const {Sequelize, QueryTypes} = require("sequelize");
-const { type } = require("node:os");
+const { blog } = require('./models');
+
 const config = require('./config/config.json')
 const sequelize = new Sequelize(config.development);
 
@@ -36,20 +37,149 @@ let dataProject = [];
 
 // -------------------------------------------------------------------------
 
-async function fetchBlog (req, res) {
-  const query = 'SELECT * FROM blogs';
-  const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
-  console.log(obj);
-  const { id, name, start, end, desc, file, iconsArray } = obj[0];
-  const duration = calculateDuration(start, end);
-  const iconsPath = iterateIcons(iconsArray);
-  console.log("Iconspath " + iconsPath);
-  console.log("Duration " + duration);
-  res.render("index", {obj: obj, duration: duration, iconsPath: iconsPath});
+async function getUsers() {
+  const blogs = await blog.findAll();
+  return blogs;
 }
 
+async function fetchBlog (req, res) {
+  // const query = 'SELECT * FROM blogs';
+  // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+
+  console.log("GET USERS");
+  console.log( await getUsers());
+  const obj = await getUsers();
+  res.render("index", {obj});
+}
+
+async function getDetailUsers(idParams) {
+  const blogs = await blog.findOne({where: {id: idParams}});
+  return blogs;
+}
+
+async function fetchDetailBlog(idParams, req,res) {
+  // const query = `SELECT * FROM blogs WHERE id=${idParams}`;
+  // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+  console.log("GET USERS");
+  console.log( await getDetailUsers(idParams));
+  const obj = await getDetailUsers(idParams);
+  console.log(obj);
+  res.render("project-page", {obj});
+}
+
+async function fetchEditBlog(idParams, req,res) {
+  // const query = `SELECT * FROM blogs WHERE id=${idParams}`;
+  // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+  const obj = await blog.findOne({where: {id: idParams}});
+  const iconsName = {}
+  if(obj.iconsArray) {
+    obj.iconsArray.forEach((val) => {
+      switch (val) {
+        case "../assets/img/icon/node-js.png":
+          return iconsName.node = "node";
+        case "../assets/img/icon/atom.png":
+          return iconsName.react = "react";
+        case "../assets/img/icon/next-js-seeklogo.svg":
+          return iconsName.next = "next";
+        case "../assets/img/icon/typescript.png":
+          return iconsName.ts = "typeScript";
+        default:
+          return null;
+      }
+    })
+  }
+  
+  console.log(obj);
+  res.render("edit-project", {obj: obj, iconsName: iconsName});
+}
+
+async function postBlog (req, res) {
+  const { name, start, end, desc, icons } = req.body;
+  let filePath;
+  if(req.file) filePath = req.file.path;
+  const duration = calculateDuration(start, end);
+  const iconsPath = iterateIcons(icons);
+  //-----
+  let iconsArray = ['SELECT', 'ICONS!'];
+  iconsArray = iconsArray.map(icon => `'${icon}'`).join(',');
+  if(iconsPath)
+  {
+    iconsArray = [];
+    iconsArray = iconsPath.map(icon => `'${icon}'`).join(',');
+  }
+
+  // const query = `INSERT INTO blogs(
+  //   name, "desc", file, "createdAt", "updatedAt", "iconsArray", start, "end", duration)
+  //   VALUES ('${name}', '${desc}', '${filePath}', now(), now(), ARRAY[${iconsArray}], '${start}', '${end}', '${duration}');`;
+
+  // const obj = await sequelize.query(query, {type: QueryTypes.INSERT});
+
+  const obj = await blog.create({
+      name: name,
+      desc: desc,
+      file: filePath,
+      createdAt: sequelize.literal('CURRENT_TIMESTAMP'),
+      updatedAt: sequelize.literal('CURRENT_TIMESTAMP'),
+      iconsArray: iconsPath,
+      start: start,
+      end: end,
+      duration: duration
+
+    });
+
+  
+}
+
+async function deleteBlog (idParams) {
+  const file = `SELECT file FROM blogs WHERE id=${idParams}`
+  // const query = `DELETE FROM blogs WHERE id=${idParams}`;
+  const fileQuery = await sequelize.query(file, {type: QueryTypes.SELECT});
+  // const obj = sequelize.query(query, {type: QueryTypes.DELETE});
+
+  const obj = await blog.destroy({where: {id: idParams}});
+  return fileQuery;
+}
+
+async function UpdateBlog (idParams,req, res) {
+  const { name, start, end, desc, icons } = req.body;
+  let filePath;
+  if(req.file) filePath = req.file.path;
+  const duration = calculateDuration(start, end);
+  const iconsPath = iterateIcons(icons);
+  let iconsArray = ['SELECT', 'ICONS!'];
+  iconsArray = iconsArray.map(icon => `'${icon}'`).join(',');
+  if(iconsPath)
+  {
+    iconsArray = [];
+    iconsArray = iconsPath.map(icon => `'${icon}'`).join(',');
+  }
+
+  // const query = `UPDATE blogs
+	// SET name='${name}', "desc"='${desc}', file='${filePath}', "updatedAt"=now(), "iconsArray"=ARRAY[${iconsArray}], start='${start}', "end"='${end}', duration='${duration}'
+	// WHERE id=${idParams};`;
+
+  // const obj = await sequelize.query(query, {type: QueryTypes.UPDATE});
+
+  const obj = await blog.update({
+    name: name,
+    desc: desc,
+    file: filePath,
+    updatedAt: sequelize.literal('CURRENT_TIMESTAMP'),
+    iconsArray: iconsPath,
+    start: start,
+    end: end,
+    duration: duration
+    },
+    {
+      where: {id: idParams}
+    }
+
+  );
+}
+
+
 //Render home page
-app.get("/", (req, res) => {
+app.get("/index", (req, res) => {
   fetchBlog(req, res);
 });
 
@@ -65,114 +195,85 @@ app.get("/new-project", function (req, res) {
 
 // Open page details
 app.get("/project-page:id", function (req, res) {
-  const id = parseInt(req.params.id);
-  const dataArr = getItemById(dataProject, id);
-  const data = dataArr[0];
-  res.render("project-page", { data });
+  const id = req.params.id;
+  fetchDetailBlog(id,req,res);
 });
 
 // Open the edit page for selected blog
 app.get("/edit-project:id", function (req, res) {
   const { id } = req.params;
-  const dataArr = getItemById(dataProject, id);
-  const data = dataArr[0];
-  let iconIdAray = {};
-
-  if (data.iconsArray !== undefined) {
-    data.iconsArray.forEach((val) => {
-      switch (val) {
-        case "../assets/img/icon/node-js.png":
-          iconIdAray.node = true;
-          break;
-        case "../assets/img/icon/atom.png":
-          iconIdAray.react = true;
-          break;
-        case "../assets/img/icon/next-js-seeklogo.svg":
-          iconIdAray.next = true;
-          break;
-        case "../assets/img/icon/typescript.png":
-          iconIdAray.ts = true;
-          break;
-        default:
-          console.log("Check the iconsArray");
-          break;
-      }
-    });
-  }
-
-  data["iconIdArray"] = iconIdAray;
-  res.render("edit-project", { data });
+  fetchEditBlog(id, req, res);
 });
 
 // ----------------------------------------------------------------------
-// Multer upload file
-app.post("/upload-file", upload.single('file'), function (req, res) {
-  console.log("HIT");
-  console.log(req.file);
-  res.sendStatus(200);
-  res.send(req.file);
-});
 
 // Redirect after edit blog
-app.post("/confirm-edit", function (req, res) {
-  res.render("index", { dataProject });
+app.post("/confirm-edit/:id",  upload.single('file'), async function (req, res) {
+  const id = req.params.id;
+  
+  const file = `SELECT file FROM blogs WHERE id=${id}`
+  const fileQuery = await sequelize.query(file, {type: QueryTypes.SELECT});
+  console.log(fileQuery);
+  fs.unlinkSync(fileQuery[0].file);
+
+  console.log(req.body);
+  UpdateBlog(id, req, res);
+  res.redirect("/index");
 });
 
 // Create new blog
 app.post("/new-project", upload.single('file'), function (req, res) {
   console.log("New Post Created!");
   
-  // console.log(req.file);
-  const { name, start, end, desc, icons } = req.body;
+  // function addPostVariable() {
+  //   const { name, start, end, desc, icons } = req.body;
 
-  const duration = calculateDuration(start, end);
-  const iconsArray = iterateIcons(icons);
-  const length = dataProject.length;
-  let filePath;
-  if(req.file) filePath = req.file.path;
-  dataProject.unshift({
-    id: length,
-    name,
-    start,
-    end,
-    duration,
-    desc,
-    file: filePath,
-    iconsArray,
-  });
-
-  // console.log(dataProject);
-  // console.log(dataProject[0].file);
-  res.redirect("/");
+  //   const duration = calculateDuration(start, end);
+  //   const iconsArray = iterateIcons(icons);
+  //   const length = dataProject.length;
+  //   let filePath;
+  //   if(req.file) filePath = req.file.path;
+  //   dataProject.unshift({
+  //     id: length,
+  //     name,
+  //     start,
+  //     end,
+  //     duration,
+  //     desc,
+  //     file: filePath,
+  //     iconsArray,
+  //   });
+  // }
+  postBlog(req,res);
+  res.redirect("/index");
 });
 
 //Edit blog before redirect
-app.patch("/patch-project", upload.single('file'), function (req, res) {
-  const { id, name, start, end, desc, file, iconsArray } = req.body;
-  const duration = calculateDuration(start, end);
-  const iconsPathArray = iterateIcons(iconsArray);
-  let filePath;
-  if(req.file) filePath = req.file.path;
-  const data = {
-    id,
-    name,
-    start,
-    end,
-    duration,
-    desc,
-    file: filePath,
-    iconsArray: iconsPathArray,
-  };
-
-  dataProject.splice(getindexbyID(dataProject, id), 1, data);
+app.patch("/patch-project/:id", async function (req, res) {
+  const id = req.params.id;
+  // delete the prev file
+  const file = `SELECT file FROM blogs WHERE id=${id}`
+  const fileQuery = await sequelize.query(file, {type: QueryTypes.SELECT});
+  console.log(fileQuery);
+  try {
+    fs.unlinkSync(fileQuery[0].file);
+  } catch (err) {
+    console.log("DELETE IMAGE ERROR")
+  }
+  
+  // update the database
 });
 
 //Delete Blog
-app.delete("/new-project/:id", function (req, res) {
-  const { id } = req.params;
-
-  fs.unlinkSync(dataProject[id].file);
-  dataProject = deleteItemById(dataProject, id);
+app.delete("/new-project/:id", async function (req, res) {
+  
+  const file = await deleteBlog(req.params.id);
+  try {
+    fs.unlinkSync(file[0].file);
+  } catch (err) {
+    console.log("DELETE IMAGE ERROR")
+  }
+  res.redirect("/index");
 });
 
 app.listen(port);

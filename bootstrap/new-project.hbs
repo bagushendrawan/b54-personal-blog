@@ -43,7 +43,7 @@
 
             <div class="mb-3">
                 <label for="name" class="form-label">Project Name</label>
-                <input name="name" id="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="John Doe">
+                <input name="name" id="name" type="text" class="form-control" id="exampleFormControlInput1" placeholder="John Doe" required>
             </div>
   
             <div class="row g-3 align-items-center">
@@ -52,7 +52,7 @@
                   <label for="start" class="col-form-label">Start Date</label>
                 </div>
                 <div class="col-auto">
-                  <input type="date" name="start" id="start" class="form-control" style="color:rgba(0, 0, 0, 0.75);">
+                  <input type="date" name="start" id="start" class="form-control" style="color:rgba(0, 0, 0, 0.75);" required>
                 </div>
               </div>
               <div class="col-md-6">
@@ -60,14 +60,14 @@
                   <label for="end" class="col-form-label">End Date</label>
                 </div>
                 <div class="col-auto">
-                  <input type="date" name="end" id="end" class="form-control" style="color:rgba(0, 0, 0, 0.75);">
+                  <input type="date" name="end" id="end" class="form-control" style="color:rgba(0, 0, 0, 0.75);" required>
                 </div>
               </div>
             </div>
 
             <div class="mt-4 mb-3">
               <label for="desc" class="form-label">Description</label>
-              <textarea class="form-control" name="desc" id="desc" rows="3"></textarea>
+              <textarea class="form-control" name="desc" id="desc" rows="3" required></textarea>
             </div>
 
             <div class="row g-1 mb-3">
@@ -99,7 +99,7 @@
 
           <div class="mb-3">
               <label for="formFile" class="form-label">Upload Image</label>
-              <input class="form-control" type="file" name="file" id="file">
+              <input class="form-control" type="file" name="file" id="file" required>
           </div>
   
           <div>

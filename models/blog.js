@@ -14,9 +14,27 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   blog.init({
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    image: DataTypes.STRING
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      allowNull: false,
+      autoIncrement: true
+    },
+    name: DataTypes.STRING,
+    desc: DataTypes.STRING,
+    file: DataTypes.STRING,
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    iconsArray: DataTypes.ARRAY(DataTypes.STRING),
+    start: DataTypes.DATEONLY,
+    end: DataTypes.DATEONLY,
+    duration: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'blog',

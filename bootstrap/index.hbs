@@ -85,14 +85,11 @@
             <img src="{{project.file}}" class="card-img-top" alt="..." style="height: 200px; object-fit: cover;">
             <div class="card-body">
               <h5 class="card-title">{{project.name}}</h5>
-              {{/each}}
-              <p class="card-text" id="duration">{{duration}}</p>
-              {{#each obj as |project|}}
+              <p class="card-text" id="duration">{{project.duration}}</p>
               <p class="card-text"  id="syn">{{project.desc}}</p>
-              {{/each}}
               
               <div class="icons mb-4" style="height:1.5rem">
-                {{#each iconsPath as |icon|}}
+                {{#each project.iconsArray as |icon|}}
                 <img src="{{icon}}" style="height:1.5rem" />
                 {{/each}}
               </div>
@@ -109,7 +106,7 @@
               </div>
           </div>
         </a>
-        
+        {{/each}}
       </section>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
