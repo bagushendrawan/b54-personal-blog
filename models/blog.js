@@ -34,7 +34,12 @@ module.exports = (sequelize, DataTypes) => {
     iconsArray: DataTypes.ARRAY(DataTypes.STRING),
     start: DataTypes.DATEONLY,
     end: DataTypes.DATEONLY,
-    duration: DataTypes.STRING
+    duration: DataTypes.STRING,
+    authorID: {
+      type: DataTypes.INTEGER,
+      references: 'users', // nama table
+      referencesKey: 'id' // nama kolom users.id
+}
   }, {
     sequelize,
     modelName: 'blog',

@@ -8,6 +8,8 @@ const multer = require("multer");
 const fs = require('fs');
 const {Sequelize, QueryTypes} = require("sequelize");
 const { blog, user } = require('./models');
+blog.belongsTo(user, { foreignKey: 'authorID' });
+
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const flash = require('express-flash');
@@ -57,15 +59,43 @@ async function getUsers() {
 }
 
 async function fetchBlog (req, res) {
-  // const query = 'SELECT * FROM blogs';
-  // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
   const userLog = await getUserLog(req,res);
-  const obj = await getUsers();
-  res.render("new-project", {obj, userLog, isLogin:req.session.isLogin});
+  let obj = [];
+  if(req.session.isLogin)
+  {
+    // const query = `SELECT blogs.id, blogs.name, blogs.desc, blogs.file, blogs."createdAt", blogs."updatedAt", blogs."iconsArray", blogs.start, blogs."end", blogs.duration, users.name as username FROM blogs INNER JOIN users ON "authorID" = users.id WHERE "authorID" = ${req.session.user.authorID};`;
+    // obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+
+    obj = await blog.findAll({include: [{
+      model: user,
+      attributes: [['name', 'username']],
+      required: true, //true untuk inner join
+      where: {id: req.session.user.authorID}
+    }]}) 
+
+    console.log("join ", obj);
+    console.log("USER ", obj[0].user.dataValues.username);
+    //obj = await getUsers();
+    res.render("new-project", {obj, userLog, isLogin:req.session.isLogin});
+  } else {
+    req.flash("fail", "Please Login to see our blogs");
+    res.render("new-project", {obj, userLog, isLogin:false});
+  }
 }
 
-async function getDetailUsers(idParams) {
-  const blogs = await blog.findOne({where: {id: idParams}});
+async function getDetailUsers(idParams, req, res) {
+  // const query = `SELECT blogs.id, blogs.name, blogs.desc, blogs.file, blogs."createdAt", blogs."updatedAt", blogs."iconsArray", blogs.start, blogs."end", blogs.duration, users.name as username FROM blogs INNER JOIN users ON "authorID" = users.id WHERE blogs.id = ${idParams};`;
+  // const blogs = await sequelize.query(query, {type: QueryTypes.SELECT});
+  //const blogs = await blog.findOne({where: {id: idParams}});
+  const blogs = await blog.findOne({include: [{
+    model: user,
+    attributes: [['name', 'username']],
+    required: true, //true untuk inner join
+  }],
+  where: {id: idParams}
+}) 
+
+  console.log("BLOGS ", blogs);
   return blogs;
 }
 
@@ -73,7 +103,7 @@ async function fetchDetailBlog(idParams, req,res) {
   // const query = `SELECT * FROM blogs WHERE id=${idParams}`;
   // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
   const userLog = await getUserLog(req,res);
-  const obj = await getDetailUsers(idParams);
+  const obj = await getDetailUsers(idParams, req, res);
   console.log(obj);
   res.render("project-page", {obj, userLog, isLogin:req.session.isLogin});
 }
@@ -135,7 +165,8 @@ async function postBlog (req, res) {
       iconsArray: iconsPath,
       start: start,
       end: end,
-      duration: duration
+      duration: duration,
+      authorID: req.session.user.authorID
 
     });
 
@@ -196,9 +227,21 @@ app.get("/", (req, res) => {
 });
 
 app.get("/index", async (req, res) => {
+  let obj = [];
+  if(req.session.isLogin)
+  {
+  // const query = `SELECT blogs.id, blogs.name, blogs.desc, blogs.file, blogs."createdAt", blogs."updatedAt", blogs."iconsArray", blogs.start, blogs."end", blogs.duration, users.name as username FROM blogs INNER JOIN users ON "authorID" = users.id WHERE "authorID" = ${req.session.user.authorID};`;
+  // obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+  obj = await blog.findAll({include: [{
+    model: user,
+    attributes: [['name', 'username']],
+    required: true, //true untuk inner join
+    where: {id: req.session.user.authorID}
+  }]});
+  }
   const userLog = await getUserLog(req,res);
   
-  res.render("index", {userLog, isLogin:req.session.isLogin});
+  res.render("index", {obj, userLog, isLogin:req.session.isLogin});
 });
 
 //Render contact form page
@@ -286,6 +329,7 @@ app.post("/login", async function(req,res){
         req.flash("success", `Successfully log in to ${userData.name} account!`);
         req.session.isLogin = isLogin;
         req.session.user = {
+          authorID: userData.id,
           name: userData.name,
           email: userData.email
         }

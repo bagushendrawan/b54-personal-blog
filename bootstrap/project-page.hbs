@@ -50,8 +50,12 @@
               <a class="nav-link" href="./contact-form">Contact Me</a>
             </li>
           </ul>
+          {{#if isLogin}}
+
+          {{else}}
           <a href="./login" type="button" class="btn btn-primary me-2 black border-0">Login</a>
           <a href="./register" type="button" class="btn btn-primary me-2 black border-0">Register</a>
+          {{/if}}
         </div>
       </div>
     </nav>
@@ -70,11 +74,11 @@
                   <div class="mt-2 mb-4">
                     <h5 class="f1 mb-2">Duration</h5>
                     <h6>
-                      <i class="fa-solid fa-calendar-days"></i> {{obj.start}} - {{obj.end}}
+                      <i class="fa-solid fa-calendar-days"></i> {{obj.start}} / {{obj.end}}
                     </h6>
                     <h6><i class="fa-regular fa-clock"></i> {{obj.duration}}</h6>
                   </div>
-                  <div class="row">
+                  <div class="row mb-4">
                     <h5 class="f1 mb-2">Technologies</h5>
                     <div class="d-flex w-50 flex-wrap gap-3">
                       {{#each obj.iconsArray as |icon|}}
@@ -82,7 +86,10 @@
                       {{/each}}
                     </div>
                   </div>
-
+                  <div class="">
+                    <h5 class="f1 mb-2">Author</h5>
+                    <h6><i class="fa-regular fa-user"></i> {{obj.user.dataValues.username}}</h6>
+                  </div>
                 </div>
               </div>
             </div>

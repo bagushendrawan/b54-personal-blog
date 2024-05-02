@@ -50,8 +50,12 @@
               <a class="nav-link" href="./contact-form">Contact Me</a>
             </li>
           </ul>
+          {{#if isLogin}}
+
+          {{else}}
           <a href="./login" type="button" class="btn btn-primary me-2 black border-0">Login</a>
           <a href="./register" type="button" class="btn btn-primary me-2 black border-0">Register</a>
+          {{/if}}
         </div>
       </div>
     </nav>
@@ -68,7 +72,9 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
       {{/if}}
-    <div class="container-lg d-flex justify-content-center align-items-center mt-5">
+
+    <div class="d-flex flex-column justify-content-center align-items-center">
+      <div class="container-lg d-flex justify-content-center align-items-center mt-5">
       <div class="card mb-3 p-md-5 p-4" style="max-width: 900px;">
         <div class="row g-0">
           <div class="col-md-8 d-flex align-items-center pe-md-4">
@@ -107,7 +113,35 @@
           </div>
         </div>
       </div>
+      </div>
+
+      {{#if isLogin}}
+      <div class="container-lg w-50 my-5">
+        <h3 class="mb-4">Project's List</h3>
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Num</th>
+                <th scope="col">Project</th>
+                <th scope="col">Finished Date</th>
+                <th scope="col">Duration</th>
+              </tr>
+            </thead>
+                  {{#each obj as |data|}}
+            <tbody>
+              <tr>
+                <th scope="row">{{@index}}</th>
+                <td>{{data.name}}</td>
+                <td>{{data.end}}</td>
+                <td>{{data.duration}}</td>
+              </tr>
+            </tbody>
+            {{/each}}
+          </table>
+      </div>
+      {{/if}}
     </div>
+    
     
     
 
