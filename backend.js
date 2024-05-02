@@ -1,5 +1,5 @@
 //const viewProject = require("./assets/js/project");
-
+require('dotenv').config();
 const express = require("express");
 const hbs = require("hbs");
 const app = express();
@@ -7,7 +7,10 @@ const path = require("node:path");
 const multer = require("multer");
 const fs = require('fs');
 const {Sequelize, QueryTypes} = require("sequelize");
-const { blog } = require('./models');
+const { blog, user } = require('./models');
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const flash = require('express-flash');
 
 const config = require('./config/config.json')
 const sequelize = new Sequelize(config.development);
@@ -17,6 +20,18 @@ const port = 5000;
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use("/assets", express.static(path.join(__dirname, "./assets")));
+app.use(session({
+  name: "Our Sessions",
+  secret: process.env.SECRET_KEY,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { 
+    secure: false,
+    maxAge: 60000
+   }
+}))
+app.use(flash());
+
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "./bootstrap"));
@@ -33,7 +48,6 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-let dataProject = [];
 
 // -------------------------------------------------------------------------
 
@@ -45,11 +59,9 @@ async function getUsers() {
 async function fetchBlog (req, res) {
   // const query = 'SELECT * FROM blogs';
   // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
-
-  console.log("GET USERS");
-  console.log( await getUsers());
+  const userLog = await getUserLog(req,res);
   const obj = await getUsers();
-  res.render("index", {obj});
+  res.render("new-project", {obj, userLog, isLogin:req.session.isLogin});
 }
 
 async function getDetailUsers(idParams) {
@@ -60,16 +72,16 @@ async function getDetailUsers(idParams) {
 async function fetchDetailBlog(idParams, req,res) {
   // const query = `SELECT * FROM blogs WHERE id=${idParams}`;
   // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
-  console.log("GET USERS");
-  console.log( await getDetailUsers(idParams));
+  const userLog = await getUserLog(req,res);
   const obj = await getDetailUsers(idParams);
   console.log(obj);
-  res.render("project-page", {obj});
+  res.render("project-page", {obj, userLog, isLogin:req.session.isLogin});
 }
 
 async function fetchEditBlog(idParams, req,res) {
   // const query = `SELECT * FROM blogs WHERE id=${idParams}`;
   // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+  const userLog = await getUserLog(req,res);
   const obj = await blog.findOne({where: {id: idParams}});
   const iconsName = {}
   if(obj.iconsArray) {
@@ -90,7 +102,7 @@ async function fetchEditBlog(idParams, req,res) {
   }
   
   console.log(obj);
-  res.render("edit-project", {obj: obj, iconsName: iconsName});
+  res.render("edit-project", {obj: obj, iconsName: iconsName, userLog, isLogin:req.session.isLogin});
 }
 
 async function postBlog (req, res) {
@@ -179,18 +191,25 @@ async function UpdateBlog (idParams,req, res) {
 
 
 //Render home page
-app.get("/index", (req, res) => {
-  fetchBlog(req, res);
+app.get("/", (req, res) => {
+  res.redirect("/index");
+});
+
+app.get("/index", async (req, res) => {
+  const userLog = await getUserLog(req,res);
+  
+  res.render("index", {userLog, isLogin:req.session.isLogin});
 });
 
 //Render contact form page
-app.get("/contact-form", function (req, res) {
-  res.render("contact-form");
+app.get("/contact-form", async function (req, res) {
+  const userLog = await getUserLog(req,res);
+  res.render("contact-form", {userLog, isLogin:req.session.isLogin});
 });
 
-//Render add project page
-app.get("/new-project", function (req, res) {
-  res.render("new-project");
+//Render project page
+app.get("/new-project", async function (req, res) {
+  fetchBlog(req, res);
 });
 
 // Open page details
@@ -205,11 +224,95 @@ app.get("/edit-project:id", function (req, res) {
   fetchEditBlog(id, req, res);
 });
 
+app.get("/register", async function(req,res){
+  const userLog = await getUserLog(req,res);
+  res.render("register", {userLog, isLogin:req.session.isLogin});
+})
+
+app.get("/login", async function(req,res){
+  const userLog = await getUserLog(req,res);
+  res.render("login", {userLog, isLogin:req.session.isLogin});
+})
+
 // ----------------------------------------------------------------------
+app.post("/register", upload.single('file'), function(req,res){
+  const {username, email, password} = req.body;
+  const saltRounds = 10;
+  bcrypt.hash(password, saltRounds, async function(err, hash) {
+    // Store hash in your password DB.
+    try {
+        // const query = `INSERT INTO blogs(
+        //   name, email, password, file, "createdAt", "updatedAt")
+        //   VALUES ('${username}','${email}', '${filePath}', '${password}', now(), now());`;
+
+        // const obj = await sequelize.query(query, {type: QueryTypes.INSERT});
+        let filePath;
+        if(req.file) filePath = req.file.path;
+
+        console.log("Pass ", hash);
+        const obj = await user.create({
+        name: username,
+        email: email,
+        password: hash,
+        file: filePath,
+        createdAt: sequelize.literal('CURRENT_TIMESTAMP'),
+        updatedAt: sequelize.literal('CURRENT_TIMESTAMP'),
+      });
+      req.flash("success", `Successfully registering ${username} account!`);
+      res.redirect("/login");
+    } catch (err) {
+      console.log("Error at Register", err);
+      req.flash("fail", `Email already been registered`);
+      res.redirect("/register");
+    }
+
+  });
+  console.log(username, email, password);
+})
+
+app.post("/login", async function(req,res){
+  const {email, password} = req.body;
+  console.log( email, password);
+
+  //... fetch user from a db etc.
+  // const query = `SELECT * FROM blogs WHERE email=${email}`;
+  // const obj = await sequelize.query(query, {type: QueryTypes.SELECT});
+  const userData = await user.findOne({where: {email: email}});
+  
+  if(userData){
+      const isLogin = await bcrypt.compare(password, userData.password);
+      if(isLogin) {
+        //login
+        req.flash("success", `Successfully log in to ${userData.name} account!`);
+        req.session.isLogin = isLogin;
+        req.session.user = {
+          name: userData.name,
+          email: userData.email
+        }
+        res.redirect("/index");
+    } else {
+      req.flash("fail", `Email/passwords may be incorrect or does not exist`);
+      res.redirect("/login");
+    }
+  } else {
+    req.flash("fail", `Email/passwords may be incorrect or does not exist`);
+    res.redirect("/login");
+  }
+  
+
+  //...
+});
+
+app.post("/log-out", async (req,res) => {
+  req.session.destroy(function(err) {
+    console.log("Account has been Logged out");
+    res.redirect("/index");
+  })
+})
 
 // Redirect after edit blog
 app.post("/confirm-edit/:id",  upload.single('file'), async function (req, res) {
-  const id = req.params.id;
+ if(req.session.isLogin) {const id = req.params.id;
   
   const file = `SELECT file FROM blogs WHERE id=${id}`
   const fileQuery = await sequelize.query(file, {type: QueryTypes.SELECT});
@@ -218,7 +321,10 @@ app.post("/confirm-edit/:id",  upload.single('file'), async function (req, res) 
 
   console.log(req.body);
   UpdateBlog(id, req, res);
-  res.redirect("/index");
+  req.flash("success", `Successfully edit the project!`);
+  res.redirect("/new-project");} else {
+    res.status(401).send("YOU'RE NOT AUTHORIZED TO EDIT PROJECT");
+  }
 });
 
 // Create new blog
@@ -244,8 +350,14 @@ app.post("/new-project", upload.single('file'), function (req, res) {
   //     iconsArray,
   //   });
   // }
-  postBlog(req,res);
-  res.redirect("/index");
+  if(req.session.isLogin)
+  {
+    postBlog(req,res);
+    res.redirect("/new-project");
+  } else {
+    res.status(401).send("YOU'RE NOT AUTHORIZED TO POST NEW PROJECT");
+  }
+  
 });
 
 //Edit blog before redirect
@@ -266,17 +378,35 @@ app.patch("/patch-project/:id", async function (req, res) {
 
 //Delete Blog
 app.delete("/new-project/:id", async function (req, res) {
-  
-  const file = await deleteBlog(req.params.id);
+  if(req.session.isLogin)
+  {
+    const file = await deleteBlog(req.params.id);
   try {
     fs.unlinkSync(file[0].file);
   } catch (err) {
     console.log("DELETE IMAGE ERROR")
   }
+  req.flash("fail", `Email/passwords may be incorrect or does not exist`);
   res.redirect("/index");
+  } else {
+    res.status(401).send("YOU'RE NOT AUTHORIZED TO DELETE PROJECT");
+  }
 });
 
 app.listen(port);
+
+async function getUserLog(req,res){
+  let userLog = {};
+  if(req.session.isLogin)
+  {
+    userLog = await user.findOne({where: {email: req.session.user.email}});
+    console.log("Get the user login data", userLog);
+  } else {
+    userLog = null;
+  }
+
+  return userLog;
+}
 
 function calculateDuration(start, end) {
   let timeDifferencesMs = new Date(end) - new Date(start);

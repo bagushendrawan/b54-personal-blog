@@ -36,6 +36,46 @@ a.black:hover {
     background-color: rgb(64, 64, 64);
 }
 
+#addProject {
+    position: fixed;
+    left: 32px;
+    bottom: 32px;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(230, 230, 230);
+}
+
+#addProject i:hover {
+    background-color: rgb(0, 130, 251);
+    cursor: pointer;
+}
+
+#addProject i{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    padding: 8px;
+    height: 32px;
+    width: auto;
+    background-color: rgb(0, 155, 251);
+    color: white;
+    border-radius: 4px;
+}
+
+#outerForm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(243, 243, 243);
+    padding: 2rem;
+    border-radius: 4px;
+    z-index: 9999; /* Ensure it's on top */
+}
+
 @media only screen and (max-width:768px)
 {
 

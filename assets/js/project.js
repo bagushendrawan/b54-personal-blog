@@ -1,5 +1,3 @@
-
-
 async function deleteProject(id)
 {
   const response = await fetch(
