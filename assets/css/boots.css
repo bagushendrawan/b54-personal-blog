@@ -1,82 +1,83 @@
 body {
-    background-color: rgb(230, 230, 230);
+  background-color: rgb(230, 230, 230);
 }
 
-.text-none{
-    text-decoration: none;
+.text-none {
+  text-decoration: none;
 }
 
 .nav-font {
-    font-weight: 500;
+  font-weight: 500;
 }
 
-.icons img{
-    height: 38px;
-    margin: auto 1rem;
+.icons img {
+  height: 38px;
+  margin: auto 1rem;
 }
 
 .text-justify {
-    text-align: justify;
+  text-align: justify;
 }
 
 .btn-noborder:hover {
-    background-color: white;
-    color: black;
+  background-color: white;
+  color: black;
 }
 
 .black {
- background-color: rgb(32, 32, 32);
+  background-color: rgb(32, 32, 32);
 }
 
 button.black:hover {
-    background-color: rgb(64, 64, 64);
+  background-color: rgb(64, 64, 64);
 }
 
 a.black:hover {
-    background-color: rgb(64, 64, 64);
+  background-color: rgb(64, 64, 64);
 }
 
 #addProject {
-    position: fixed;
-    left: 32px;
-    bottom: 32px;
-    border: none;
-    border-radius: 4px;
-    background-color: rgb(230, 230, 230);
+  position: fixed;
+  left: 32px;
+  bottom: 32px;
+  border: none;
+  border-radius: 4px;
+  background-color: rgb(230, 230, 230);
+  z-index: 10;
 }
 
 #addProject i:hover {
-    background-color: rgb(0, 130, 251);
-    cursor: pointer;
+  background-color: rgb(0, 130, 251);
+  cursor: pointer;
 }
 
-#addProject i{
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    padding: 8px;
-    height: 32px;
-    width: auto;
-    background-color: rgb(0, 155, 251);
-    color: white;
-    border-radius: 4px;
+#addProject i {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding: 8px;
+  height: 32px;
+  width: auto;
+  background-color: rgb(0, 155, 251);
+  color: white;
+  border-radius: 4px;
 }
 
 #outerForm {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(243, 243, 243);
-    padding: 2rem;
-    border-radius: 4px;
-    z-index: 9999; /* Ensure it's on top */
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(243, 243, 243);
+  padding: 2rem;
+  border-radius: 4px;
+  overflow-y: auto;
+  max-height: 100vh;
+  z-index: 9;
 }
 
-@media only screen and (max-width:768px)
-{
-
+@media only screen and (max-width: 768px) {
 }

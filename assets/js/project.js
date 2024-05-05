@@ -5,6 +5,13 @@ async function deleteProject(id)
 		{
 			method: 'DELETE',
     });
+
+    // const data = await response.json();
+    // console.log("RESPONSE",response);
+    // if(response.ok)
+    //   {
+    //     window.location.href = data.redirectedUrl;
+    //   }
 }
 
 async function editProject(id)

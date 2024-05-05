@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.DATE,
       allowNull: false,
     },
+    subject: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'user',

@@ -22,10 +22,10 @@ function submitHandler() {
     name,email,phone,subject,message
  }
 
- const yourEmail = "bagushendrawan892@gmail.com";
+ //const yourEmail = "bagushendrawan892@gmail.com";
 
  let a = document.createElement("a");
- a.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${yourEmail}&su=${subject}&body=${message}`;
+ a.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${subject}&body=${message}`;
 
  a.click();
 
