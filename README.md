@@ -29,7 +29,7 @@
     <img src="https://github.com/bagushendrawan/b54-personal-blog/blob/main/assets/img/favicon.ico" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Circle App</h3>
+<h3 align="center">Personal Blog</h3>
 
   <p align="center">
     X-Like Application a project during Batch-54 Dumbways.id Fullstack Bootcamp
