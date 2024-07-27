@@ -32,7 +32,7 @@
 <h3 align="center">Personal Blog</h3>
 
   <p align="center">
-    X-Like Application a project during Batch-54 Dumbways.id Fullstack Bootcamp
+    Personal Blog project during Batch-54 Dumbways.id Fullstack Bootcamp
     <br />
     <a href="https://github.com/bagushendrawan/b54-personal-blog"><strong>Explore the docs »</strong></a>
     <br />
